@@ -1,10 +1,10 @@
-use std::str::FromStr;
+use std::{ops::Index, str::FromStr};
 
 use crate::task_handler::get_task;
 
 pub fn tasks() {
     println!("{}", task1());
-    // println!("{}", task2());
+    println!("{}", task2());
 }
 
 static SCORE_TASK1: [[usize; 3]; 3] = [
@@ -58,5 +58,30 @@ fn task1() -> usize {
         })
         .fold(0_usize, |prev, curr| {
             prev + Choice::play(&curr) + curr[1].score()
+        })
+}
+
+//--------------------------------------------
+
+fn match_score(input: &str) -> usize {
+    match input {
+        "A" | "X" => 1,
+        "B" | "Y" => 2,
+        "C" | "Z" => 3,
+        _ => panic!("Failed to parse"),
+    }
+}
+
+fn task2() -> usize {
+     get_task(2)
+        .lines()
+        .map(|line| line.split_whitespace().map(match_score).collect::<Vec<_>>())
+        .fold(0, |curr, game| {
+            // store as (p2, result) as that what we need to get the result
+            curr + 
+            SCORE_TASK1[game[0] - 1]
+                    .iter()
+                    .position(|x| *x == ((game[1] - 1) * 3)).unwrap() + 1 +  // This gets the score of the index of the relevant move as win = 6, lose is 0 and draw is 3
+                (game[1] - 1) * 3
         })
 }
