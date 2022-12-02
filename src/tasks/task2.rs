@@ -85,3 +85,20 @@ fn task2() -> usize {
                 (game[1] - 1) * 3
         })
 }
+
+
+#[cfg(test)]
+mod tests{
+    use super::{task1, task2};
+
+    #[test]
+    fn test_task1() {
+        assert_eq!(task1(), 11063);
+    }
+
+    #[test]
+    fn test_task2() {
+        assert_eq!(task2(), 10349)
+    }
+
+}
