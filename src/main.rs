@@ -9,4 +9,5 @@ use tasks::*;
 fn main() {
     task1::tasks();
     task2::tasks();
+    task3::tasks();
 }
