@@ -1,8 +1,4 @@
-use core::num;
-use std::{
-    cmp::{self, Reverse},
-    usize,
-};
+use std::{cmp::Reverse, usize};
 
 use itertools::Itertools;
 
@@ -41,6 +37,7 @@ fn total_calories() -> Vec<usize> {
         .collect()
 }
 
+#[allow(dead_code)]
 fn task1_long() -> usize {
     let task = get_task(1);
     task.lines()
@@ -51,6 +48,7 @@ fn task1_long() -> usize {
         .unwrap()
 }
 
+#[allow(dead_code)]
 fn task2_long() -> usize {
     let task = get_task(1);
     task.lines()
