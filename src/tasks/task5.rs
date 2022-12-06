@@ -45,6 +45,7 @@ fn task1(stacks: &mut Stacks, instructions: &Instructions) -> String {
 fn task2(stacks: &mut Stacks, instructions: &Instructions) -> String {
     for (c, from, to) in instructions.iter() {
         let height = stacks[*from - 1].len() - c;
+        #[allow(clippy::needless_collect)]
         let x = stacks[*from - 1].drain(height..).collect::<Vec<_>>();
         x.into_iter().for_each(|x| stacks[*to - 1].push(x));
     }

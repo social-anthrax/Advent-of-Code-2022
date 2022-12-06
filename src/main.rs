@@ -4,6 +4,7 @@
 
 mod task_handler;
 mod tasks;
+extern crate proc_macro;
 #[allow(clippy::wildcard_imports)]
 use tasks::*;
 
@@ -13,4 +14,5 @@ fn main() {
     task3::tasks();
     task4::tasks();
     task5::tasks();
+    task6::tasks();
 }
