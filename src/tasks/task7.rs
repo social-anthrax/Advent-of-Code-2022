@@ -75,23 +75,24 @@ impl Tree {
     pub fn take_line(&mut self, str: &str) {
         if str.starts_with('$') {
             match str.rsplit_once(' ') {
-                Some(("$ cd", "..")) => self.curr_node = self.dirs[self.curr_node].parent.unwrap(),
+                Some(("$ cd", "..")) => self.curr_node = self.get_curr_node().parent.unwrap(),
                 Some(("$ cd", dir)) => {
-                    self.curr_node = *self.dirs[self.curr_node]
+                    self.curr_node = *self
+                        .get_curr_node()
                         .children
                         .iter()
-                        .find(|&&x| self.dirs[x].name == dir)
+                        .find(|&x| self.dirs[*x].name == dir)
                         .unwrap();
                 }
                 _ => (),
             }
         } else if str.starts_with("dir") {
             let len = self.dirs.len();
-            self.dirs[self.curr_node].children.push(len);
+            self.get_curr_mut_node().children.push(len);
             self.dirs.push(Dir::new(str, Some(self.curr_node)));
         } else {
             let x = str.split_once(' ').unwrap();
-            self.dirs[self.curr_node].sum += x.0.parse::<usize>().unwrap();
+            self.get_curr_mut_node().sum += x.0.parse::<usize>().unwrap();
         }
     }
 
@@ -102,14 +103,22 @@ impl Tree {
             .and_then(|i| self.dirs.get_mut(i))
     }
 
+    fn get_curr_mut_node(&mut self) -> &mut Dir {
+        self.dirs.get_mut(self.curr_node).unwrap()
+    }
+
+    fn get_curr_node(&self) -> &Dir {
+        self.dirs.get(self.curr_node).unwrap()
+    }
+
     pub fn sum_nodes(&mut self) {
-        for i in (0..self.dirs.len()).rev() {
+        (0..self.dirs.len()).rev().for_each(|i| {
             self.curr_node = i;
-            let sum = self.dirs[i].sum;
+            let sum = self.get_curr_mut_node().sum;
             if let Some(dir) = self.get_parent() {
                 dir.sum += sum;
             }
-        }
+        });
     }
 }
 
