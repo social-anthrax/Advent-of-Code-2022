@@ -88,11 +88,10 @@ fn task2(input: &str) -> usize {
         .lines()
         .map(|line| {
             line.chars()
-                .map(|c| c.to_digit(10).unwrap() as u8)
+                .map(|c| c.to_digit(10).unwrap().try_into().unwrap())
                 .collect()
         })
         .collect();
-    let len = grid[0].len();
     for (i, row) in grid.iter().enumerate() {
         for (j, char) in row.iter().enumerate() {
             let height = *char;
