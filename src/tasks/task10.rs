@@ -1,5 +1,4 @@
-use std::fmt::Display;
-
+#![allow(clippy::cast_sign_loss)]
 use crate::task_handler::get_task;
 
 pub fn tasks() -> i32 {
