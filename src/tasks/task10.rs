@@ -1,9 +1,9 @@
 #![allow(clippy::cast_sign_loss)]
 use crate::task_handler::get_task;
 
-pub fn tasks() -> i32 {
+pub fn tasks() {
     let input = get_task(10);
-    priv_tasks(&input)
+    priv_tasks(&input);
 }
 
 fn priv_tasks(input: &str) -> i32 {
