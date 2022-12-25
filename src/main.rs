@@ -20,4 +20,5 @@ fn main() {
     task9::tasks();
     task10::tasks();
     task11::tasks();
+    task12::tasks();
 }
